@@ -1,0 +1,78 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f6f8;
+  margin: 0;
+}
+.text-custom-menu {
+  color: #0b0b0a !important; /* amarillo dorado */
+}
+
+#wrapper {
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #8cbef4, #0056b3);
+}
+
+.nav-link:hover {
+  background-color: rgba(246, 249, 246, 0.888);
+  border-radius: 5px;
+}
+
+.navbar {
+  height: 60px;
+}
+
+.table thead th {
+  background-color: #0a4bad;
+  color: white;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+/* login//////////////////////////////*/
+    .login-container {
+      min-height: 100vh;
+      background: linear-gradient(to right, #a2c1e2, #0571e6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-card {
+      background-color: rgb(52, 48, 48);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(63, 42, 42, 0.2);
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-card h3 {
+      color: #f2f4f5;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+      border-radius: 8px;
+    }
+
+    .btn-login {
+      background-color: #518e07;
+      border: none;
+    }
+
+    .btn-login:hover {
+      background-color: #075710;
+    }
+
+  .text-label {
+  color: #f8f3f3; /* Cambia por el color que desees */
+  font-weight: 500;
+}

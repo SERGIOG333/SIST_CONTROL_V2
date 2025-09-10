@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestión de Llegada - Profesor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    .student-photo {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #0d6efd;
+    }
+  </style>
+  
+</head>
+<body class="bg-light">
+
+  <!-- Header -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-4">
+    <span class="navbar-brand text-warning">Panel Profesor</span>
+    <div class="ms-auto dropdown">
+      <a class="nav-link dropdown-toggle text-white" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-user-circle me-1"></i>Perfil
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+        <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <div class="container py-5">
+    <h2 class="text-primary mb-4 text-center">Registro de Llegada de Estudiantes por Código QR</h2>
+
+    <!-- Escáner QR -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-primary text-white">
+        Escanear código QR del estudiante
+      </div>
+      <div class="card-body">
+        <form id="qrForm" class="row g-3 align-items-end">
+          <div class="col-md-6">
+            <label for="qrInput" class="form-label">ID del estudiante</label>
+            <input type="text" id="qrInput" class="form-control" placeholder="Ej: 1" required>
+          </div>
+          <div class="col-md-3">
+            <button type="submit" class="btn btn-success">Procesar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Datos del estudiante -->
+    <div class="card shadow-sm mb-4 d-none" id="studentCard">
+      <div class="card-body d-flex align-items-center gap-4">
+        <img id="studentPhoto" src="" alt="Foto estudiante" class="student-photo">
+        <div>
+          <p><strong>Nombre:</strong> <span id="studentName"></span></p>
+          <p><strong>Apellido:</strong> <span id="studentLastName"></span></p>
+          <p><strong>ID:</strong> <span id="studentId"></span></p>
+          <p><strong>Correo acudiente:</strong> <span id="studentEmail"></span></p>
+          <p><strong>Hora:</strong> <span id="studentHora"></span></p>
+          <p><strong>Fecha:</strong> <span id="studentFecha"></span></p>
+          <button class="btn btn-primary mt-2" id="addToTable">Registrar llegada</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="card shadow-sm">
+      <div class="card-header bg-secondary text-white">
+        Lista de llegadas
+      </div>
+      <div class="card-body table-responsive">
+        <table class="table table-bordered table-striped align-middle text-center" id="arrivalTable">
+          <thead class="table-dark">
+            <tr>
+              <th>#</th>
+              <th>Foto</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Identificación</th>
+              <th>Correo</th>
+              <th>Hora</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Dinámico -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const URL_STUDENT = "http://localhost:3000/api_v1/student/";
+    const URL_ATTENDANCE = "http://localhost:3000/api_v1/attendance";
+
+    const qrForm = document.getElementById('qrForm');
+    const qrInput = document.getElementById('qrInput');
+    const studentCard = document.getElementById('studentCard');
+    const studentPhoto = document.getElementById('studentPhoto');
+    const studentName = document.getElementById('studentName');
+    const studentLastName = document.getElementById('studentLastName');
+    const studentId = document.getElementById('studentId');
+    const studentEmail = document.getElementById('studentEmail');
+    const studentHora = document.getElementById('studentHora');
+    const studentFecha = document.getElementById('studentFecha');
+    const addToTable = document.getElementById('addToTable');
+    const arrivalTableBody = document.querySelector('#arrivalTable tbody');
+
+    let counter = 1;
+    let currentStudent = null;
+
+    qrForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const id = qrInput.value.trim();
+
+      try {
+        const res = await fetch(`${URL_STUDENT}${id}`);
+        if (!res.ok) throw new Error("Estudiante no encontrado");
+
+        const json = await res.json();
+        const data = json.data;
+
+        currentStudent = {
+          student_fk: data.student_id,
+          name: data.student_name,
+          lastName: data.student_last_name,
+          id: data.student_identificacion,
+          email: data.student_email,
+          photo: data.student_photo || "https://via.placeholder.com/100"
+        };
+
+        const now = new Date();
+        const hora = now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+        const fecha = now.toISOString().split('T')[0];
+
+        studentPhoto.src = currentStudent.photo;
+        studentName.textContent = currentStudent.name;
+        studentLastName.textContent = currentStudent.lastName;
+        studentId.textContent = currentStudent.id;
+        studentEmail.textContent = currentStudent.email;
+        studentHora.textContent = hora;
+        studentFecha.textContent = fecha;
+
+        studentCard.classList.remove('d-none');
+      } catch (err) {
+        alert("Estudiante no encontrado.");
+        console.error(err);
+        studentCard.classList.add('d-none');
+      }
+
+      qrForm.reset();
+    });
+
+    addToTable.addEventListener('click', async function () {
+      if (!currentStudent) return;
+
+      try {
+        const res = await fetch(URL_ATTENDANCE, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ student_fk: currentStudent.student_fk })
+        });
+
+        if (!res.ok) throw new Error("Error al registrar asistencia");
+
+        const now = new Date();
+        const hora = now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+        const fecha = now.toISOString().split('T')[0];
+
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+          <td>${counter++}</td>
+          <td><img src="${currentStudent.photo}" class="student-photo" style="width: 50px; height: 50px;"></td>
+          <td>${currentStudent.name}</td>
+          <td>${currentStudent.lastName}</td>
+          <td>${currentStudent.id}</td>
+          <td>${currentStudent.email}</td>
+          <td>${hora}</td>
+          <td>${fecha}</td>
+        `;
+        arrivalTableBody.appendChild(newRow);
+        studentCard.classList.add('d-none');
+        currentStudent = null;
+
+      } catch (err) {
+        alert("Error al registrar llegada.");
+        console.error(err);
+      }
+    });
+  </script>
+
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
