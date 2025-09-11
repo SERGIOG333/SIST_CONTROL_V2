@@ -17,6 +17,7 @@ import userRouter from '../routers/user.routes.js';
 import teacherRouter from '../routers/teacher.routes.js';
 import tokenRouter from '../routers/token.router.js';
 import apiRouter from "../routers/api.router.js";
+import emailRouter from "../routers/emails.routes.js";
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ================== RUTAS DE LA API ==================
+app.use('/api_v1', emailRouter);
 app.use('/api_v1', attendanceRoutes);
 /**
  * @route /api_v1/admin
@@ -96,9 +98,11 @@ app.use("/api",apiRouter);
  * @middleware
  * Middleware de manejo de rutas no encontradas.
  */
-app.use((rep, res, nex) => {
+
+
+app.use((req, res,) => {
   res.status(404).json({
-    message: 'Endpoint losses'
+    message: 'Endpoint not found'
   });
 });
 
