@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  document.body.style.display = 'none';
-  document.body.style.opacity = 0;
-
-  await checkAuth();
-  fadeInElement(document.body, 1000);
   console.log('login controller has been loaded');
+
+  // Verificar autenticación al cargar la página
+  await checkAuth();
 });
 
 const objForm = new Form('loginForm', 'edit-input');
@@ -19,7 +17,12 @@ myForm.addEventListener('submit', async (e) => {
     return;
   }
 
-  toggleLoading(true);
+  // Mostrar loading
+  const submitBtn = myForm.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'Cargando...';
+  submitBtn.disabled = true;
+
   const formData = objForm.getDataForm();
 
   try {
@@ -34,20 +37,26 @@ myForm.addEventListener('submit', async (e) => {
     // Almacenar token y redirigir
     appStorage.setItem(KEY_TOKEN, data.token);
     console.log("Login Success");
-    window.location.href = "../../../index.html#dashboard";
+    window.location.href = "/index.html#dashboard";
 
   } catch (error) {
     console.error("Error de red:", error);
     showError("No se pudo conectar con el servidor");
   } finally {
-    toggleLoading(false);
+    // Restaurar botón
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
   }
 });
 
 function showError(message) {
   const container = document.querySelector(".card-body");
-  let existingAlert = container.querySelector(".alert");
+  if (!container) {
+    console.error("No se encontró el contenedor para mostrar errores");
+    return;
+  }
 
+  let existingAlert = container.querySelector(".alert");
   if (existingAlert) existingAlert.remove();
 
   const alert = document.createElement("div");
@@ -66,3 +75,9 @@ function translateError(msg) {
   if (msg === "Required fields are missing") return "Todos los campos son obligatorios";
   return msg;
 }
+
+document.getElementById('logoutBtn')?.addEventListener('click', () => {
+  const storage = new AppStorage();
+  storage.removeItem(KEY_TOKEN);
+  window.location.href = '/frontend/views/auth/index.html';
+});

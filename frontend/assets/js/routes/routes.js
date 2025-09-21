@@ -1,18 +1,17 @@
+const routes = {
+  '#dashboard': 'frontend/views/dashboard/index.html',
+  '#admin': 'frontend/views/admin/index.html',
+  '#role': 'frontend/views/role/index.html',
+  '#student': 'frontend/views/student/index.html',
+  '#userStatus': 'frontend/views/userStatus/index.html',
+  '#teacher': 'frontend/views/teacher/index.html',
+  '#course': 'frontend/views/course/index.html',
+  '#courseStudent': 'frontend/views/courseStudent/index.html',
+  '#father': 'frontend/views/father/index.html',
+  '#user': 'frontend/views/user/index.html',
+};
 
-  const routes = {
-    '#dashboard': 'frontend/views/dashboard/index.html',
-    '#admin': 'frontend/views/admin/index.html',
-    '#role': 'frontend/views/role/index.html',
-    '#student': 'frontend/views/student/index.html',
-   
-    '#userStatus': 'frontend/views/userStatus/index.html',
-    '#teacher': 'frontend/views/teacher/index.html',
-    '#course': 'frontend/views/course/index.html',
-    '#courseStudent': 'frontend/views/courseStudent/index.html',
-    '#father': 'frontend/views/father/index.html',
-    '#user': 'frontend/views/user/index.html',
-  };
-  function loadView() {
+function loadView() {
   const hash = window.location.hash || '#dashboard';
   const path = routes[hash] || routes['#dashboard'];
 
@@ -26,5 +25,3 @@
 
 window.addEventListener('hashchange', loadView);
 window.addEventListener('DOMContentLoaded', loadView);
-
- 
