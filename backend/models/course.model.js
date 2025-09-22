@@ -9,7 +9,7 @@ const CourseModel = {
    * @param {Object} data - Información del curso.
    * @param {string} data.course_course_name - Nombre del curso.
    * @param {string} data.course_description - Descripción del curso.
-   * @param {string} data.course_assigned_teacher - Nombre del docente asignado.
+    docente asignado.
    * @param {string} data.course_assigned_student - Descripción de los estudiantes asignados.
    * @param {number} data.teacher_fk - ID del docente (llave foránea).
    * @returns {Promise<number>} ID del nuevo curso insertado.
@@ -17,18 +17,18 @@ const CourseModel = {
   async create({
     course_course_name,
     course_description,
-    course_assigned_teacher,
+   
     course_assigned_student,
     teacher_fk
   }) {
     const [result] = await connect.query(
       `INSERT INTO course 
-      (course_course_name, course_description, course_assigned_teacher, course_assigned_student, teacher_fk)
-      VALUES (?, ?, ?, ?, ?)`,
+      (course_course_name, course_description, course_assigned_student, teacher_fk)
+      VALUES (?, ?, ?, ? )`,
       [
         course_course_name,
         course_description,
-        course_assigned_teacher,
+        
         course_assigned_student,
         teacher_fk
       ]
@@ -62,12 +62,12 @@ const CourseModel = {
     const [result] = await connect.query(
       `UPDATE course SET
         course_course_name = ?, course_description = ?, 
-        course_assigned_teacher = ?, course_assigned_student = ?, teacher_fk = ?
+         course_assigned_student = ?, teacher_fk = ?
       WHERE course_id = ?`,
       [
         data.course_course_name,
         data.course_description,
-        data.course_assigned_teacher,
+        
         data.course_assigned_student,
         data.teacher_fk,
         id

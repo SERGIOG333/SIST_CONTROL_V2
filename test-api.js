@@ -1,47 +1,53 @@
-// Script de prueba para verificar que la API esté funcionando
-const testAPI = async () => {
-  const baseURL = 'http://localhost:3000';
+/**
+ * Script de prueba para verificar la funcionalidad de la API
+ * Ejecuta: node test-api.js
+ */
+
+const HOST = "http://localhost:3000/api_v1";
+
+async function testAPI() {
+  console.log("🧪 Probando conexión al servidor...");
 
   try {
-    console.log('🧪 Probando conexión al servidor...');
-
-    // Probar endpoint de login de admin
-    const loginResponse = await fetch(`${baseURL}/api_v1/admin/login`, {
+    // Probar endpoint de login
+    console.log("\n📝 Probando endpoint de login...");
+    const loginResponse = await fetch(`${HOST}/admin/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        admin_email: 'test@example.com',
-        admin_password: 'test123'
+        admin_email: 'admin@test.com',
+        admin_password: 'password123'
       })
     });
 
-    console.log('📝 Respuesta del endpoint de login:');
-    console.log('Status:', loginResponse.status);
-    console.log('Headers:', Object.fromEntries(loginResponse.headers.entries()));
-
-    const loginData = await loginResponse.text();
-    console.log('Body:', loginData);
+    console.log("Status:", loginResponse.status);
+    console.log("Headers:", Object.fromEntries(loginResponse.headers.entries()));
+    const loginBody = await loginResponse.text();
+    console.log("Body:", loginBody);
 
     // Probar endpoint de validación de token
-    const tokenResponse = await fetch(`${baseURL}/api_v1/validate-token`, {
+    console.log("\n📝 Probando endpoint de validación de token...");
+    const tokenResponse = await fetch(`${HOST}/validate-token`, {
       method: 'POST',
       headers: {
-        'Authorization': 'Bearer test-token',
         'Content-Type': 'application/json',
-      }
+      },
+      body: JSON.stringify({
+        token: 'test-token'
+      })
     });
 
-    console.log('\n📝 Respuesta del endpoint de validación de token:');
-    console.log('Status:', tokenResponse.status);
-    const tokenData = await tokenResponse.text();
-    console.log('Body:', tokenData);
+    console.log("Status:", tokenResponse.status);
+    const tokenBody = await loginResponse.text();
+    console.log("Body:", tokenBody);
+
+    console.log("\n✅ Pruebas completadas!");
 
   } catch (error) {
-    console.error('❌ Error al probar la API:', error.message);
+    console.error("❌ Error al probar la API:", error.message);
   }
-};
+}
 
-// Ejecutar las pruebas
 testAPI();

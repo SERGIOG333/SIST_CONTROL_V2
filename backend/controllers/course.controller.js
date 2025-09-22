@@ -87,12 +87,12 @@ class CourseController {
       const {
         course_course_name,
         course_description,
-        course_assigned_teacher,
+        
         course_assigned_student,
         teacher_fk
       } = req.body;
 
-      if (!course_course_name || !course_description || !course_assigned_teacher || 
+      if (!course_course_name || !course_description ||  
           !course_assigned_student || !teacher_fk) {
         return res.status(400).json({ error: "Required fields are missing" });
       }
@@ -100,7 +100,7 @@ class CourseController {
       const id = await CourseModel.create({
         course_course_name,
         course_description,
-        course_assigned_teacher,
+        
         course_assigned_student,
         teacher_fk
       });

@@ -25,7 +25,7 @@ async function loadCourses() {
         <td>${course.course_id}</td>
         <td>${course.course_course_name}</td>
         <td>${course.course_description}</td>
-        <td>${course.course_assigned_teacher}</td>
+        
         <td>${course.course_assigned_student}</td>
         <td>${course.teacher_fk}</td>
         <td>
@@ -78,7 +78,7 @@ async function editCourse(course) {
   currentId = course.course_id;
   document.getElementById("course_course_name").value = course.course_course_name;
   document.getElementById("course_description").value = course.course_description;
-  document.getElementById("course_assigned_teacher").value = course.course_assigned_teacher;
+  
   document.getElementById("course_assigned_student").value = course.course_assigned_student;
 
   await loadTeacherOptions();
@@ -112,7 +112,7 @@ async function handleFormSubmit(e) {
   const course = {
     course_course_name: document.getElementById("course_course_name").value,
     course_description: document.getElementById("course_description").value,
-    course_assigned_teacher: document.getElementById("course_assigned_teacher").value,
+    
     course_assigned_student: document.getElementById("course_assigned_student").value,
     teacher_fk: parseInt(document.getElementById("teacher_fk").value)
   };
