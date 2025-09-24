@@ -1,101 +1,86 @@
 // backend/controllers/email.controller.js
-import transporter from "../config/emailConfig.js";
-import { fileURLToPath } from "url";
+import fs from "fs";
 import path from "path";
-import ejs from "ejs";
+import handlebars from "handlebars";
+import transporter from "../config/emailConfig.js"; // 👈 usamos el transporter centralizado
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-class EmailController {
-  // Método interno para enviar correos
-  static async sendEmail(options, res) {
+const EmailController = {
+  // 🔹 Función base para enviar correos
+  async sendEmail({ to, subject, template, data }) {
     try {
-      const { to, subject, template, data, attachments, html } = options;
+      // Cargar la plantilla HTML
+      const templatePath = path.resolve("views/emails", `${template}.ejs`);
+      const source = fs.readFileSync(templatePath, "utf8");
+      const compiledTemplate = handlebars.compile(source);
+      const html = compiledTemplate(data);
 
-      const renderedHtml = template
-        ? await ejs.renderFile(
-            path.join(__dirname, `../views/emails/${template}.ejs`),
-            data || {}
-          )
-        : html || "<p>Email sent successfully!</p>";
-
+      // Opciones del correo
       const mailOptions = {
-        from: `"Sist Control" <${process.env.EMAIL_USER}>`,
+        from: process.env.EMAIL_USER,
         to,
         subject,
-        html: renderedHtml,
-        attachments: attachments || [],
+        html,
       };
 
+      // Enviar correo
       const info = await transporter.sendMail(mailOptions);
-      return res.json({ message: "📩 Email sent successfully", info });
-    } catch (error) {
-      console.error("❌ Error in sendEmail:", error);
-      return res.status(500).json({ error: "Failed to send email" });
+      console.log(`📩 Correo enviado a ${to}: ${info.response}`);
+
+      return { success: true, message: "Correo enviado correctamente" };
+    } catch (err) {
+      console.error("❌ Error al enviar correo:", err);
+      return { success: false, message: "Error al enviar correo", error: err };
     }
-  }
+  },
 
-  // Test de conexión
-  static async test(req, res) {
-    return res.json({ message: "✅ Email module is working" });
-  }
+  // ---------- MÉTODOS PÚBLICOS ----------
+  async test(req, res) {
+    return res.json({ message: "✅ Servicio de correos funcionando" });
+  },
 
-  // Correo de bienvenida
-  static async sendWelcomeEmail(req, res) {
-    const { email, name } = req.body;
-    return this.sendEmail(
-      {
-        to: email,
-        subject: "Bienvenido a Sist Control",
-        template: "welcome-email",
-        data: { name },
-      },
-      res
-    );
-  }
+  async sendWelcomeEmail(req, res) {
+    const { to, name } = req.body;
+    const result = await EmailController.sendEmail({
+      to,
+      subject: "¡Bienvenido a nuestro sistema!",
+      template: "welcome",
+      data: { name, year: new Date().getFullYear() },
+    });
+    return res.json(result);
+  },
 
-  // Correo de restablecimiento de contraseña
-  static async sendPasswordReset(req, res) {
-    const { email, name, resetLink } = req.body;
-    return this.sendEmail(
-      {
-        to: email,
-        subject: "Restablecimiento de contraseña",
-        template: "reset-password",
-        data: { name, resetLink },
-      },
-      res
-    );
-  }
+  async sendPasswordReset(req, res) {
+    const { to, resetLink } = req.body;
+    const result = await EmailController.sendEmail({
+      to,
+      subject: "Restablece tu contraseña",
+      template: "reset-password",
+      data: { resetLink, year: new Date().getFullYear() },
+    });
+    return res.json(result);
+  },
 
-  // Correo de entrada de estudiante
-  static async sendStudentEntryEmail(req, res) {
-    const { email, studentName, studentLastName, arrivalTime } = req.body;
-    return this.sendEmail(
-      {
-        to: email,
-        subject: "Notificación de llegada del estudiante",
-        template: "student-entry",
-        data: { studentName, studentLastName, arrivalTime },
-      },
-      res
-    );
-  }
+  async sendStudentEntryEmail(req, res) {
+    const { to, studentName, studentLastName, arrivalTime } = req.body;
+    const result = await EmailController.sendEmail({
+      to,
+      subject: "Notificación de llegada del estudiante",
+      template: "student-entry",
+      data: { studentName, studentLastName, arrivalTime, year: new Date().getFullYear() },
+    });
+    return res.json(result);
+  },
 
-  // Correo de salida de estudiante
-  static async sendStudentExitEmail(req, res) {
-    const { email, studentName, studentLastName, departureTime } = req.body;
-    return this.sendEmail(
-      {
-        to: email,
-        subject: "Notificación de salida del estudiante",
-        template: "student-exit",
-        data: { studentName, studentLastName, departureTime },
-      },
-      res
-    );
-  }
-}
+  async sendStudentExitEmail(req, res) {
+    const { to, studentName, studentLastName, departureTime } = req.body;
+    const result = await EmailController.sendEmail({
+      to,
+      subject: "Notificación de salida del estudiante",
+      template: "student-exit",
+      data: { studentName, studentLastName, departureTime, year: new Date().getFullYear() },
+    });
+    return res.json(result);
+  },
+};
 
 export default EmailController;

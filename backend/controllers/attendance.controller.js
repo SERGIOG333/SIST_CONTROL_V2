@@ -1,6 +1,11 @@
 // backend/controllers/attendance.controller.js
 
 import AttendanceModel from "../models/AttendanceModel.js";
+import { connect as db } from "../config/db/connectMysql.js";
+
+ // 🔹 Para consultar el padre del estudiante
+import EmailController from "./email.controller.js"; // 🔹 Para enviar el correo
+
 /**
  * @swagger
  * tags:
@@ -8,46 +13,8 @@ import AttendanceModel from "../models/AttendanceModel.js";
  *   description: Endpoints para gestionar asistencias de estudiantes
  */
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     AttendanceInput:
- *       type: object
- *       required:
- *         - student_fk
- *       properties:
- *         student_fk:
- *           type: integer
- *           description: ID del estudiante (clave foránea)
- *       example:
- *         student_fk: 1
- * 
- *     AttendanceResponse:
- *       type: object
- *       properties:
- *         attendance_id:
- *           type: integer
- *           description: ID de la asistencia generada automáticamente
- *         student_fk:
- *           type: integer
- *           description: ID del estudiante relacionado
- *         attendance_time:
- *           type: string
- *           format: time
- *           description: Hora registrada automáticamente (HH:MM:SS)
- *         attendance_date:
- *           type: string
- *           format: date
- *           description: Fecha registrada automáticamente (YYYY-MM-DD)
- *         created_at:
- *           type: string
- *           format: date-time
- *           description: Fecha y hora de creación del registro
- */
-
 const AttendanceController = {
-   /**
+  /**
    * @swagger
    * /attendance:
    *   post:
@@ -62,26 +29,8 @@ const AttendanceController = {
    *     responses:
    *       201:
    *         description: Asistencia registrada exitosamente
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   example: Asistencia registrada exitosamente.
-   *                 data:
-   *                   $ref: '#/components/schemas/AttendanceResponse'
    *       400:
    *         description: El campo student_fk es requerido
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   example: El campo student_fk es requerido.
    *       500:
    *         description: Error interno al registrar asistencia
    */
@@ -95,14 +44,40 @@ const AttendanceController = {
 
       // Obtener hora y fecha actuales
       const now = new Date();
-      const attendance_date = now.toISOString().split('T')[0]; // YYYY-MM-DD
-      const attendance_time = now.toTimeString().split(' ')[0]; // HH:MM:SS
+      const attendance_date = now.toISOString().split("T")[0]; // YYYY-MM-DD
+      const attendance_time = now.toTimeString().split(" ")[0]; // HH:MM:SS
 
+      // Insertar asistencia
       const result = await AttendanceModel.create({
         student_fk,
         attendance_time,
         attendance_date,
       });
+
+      // Buscar información del estudiante y su padre
+      const [rows] = await db.query(
+        `SELECT s.student_name, s.student_last_name, f.father_email
+         FROM student_management s
+         JOIN father_management f ON s.student_id = f.student_fk
+         WHERE s.student_id = ?`,
+        [student_fk]
+      );
+
+      if (rows.length > 0) {
+        const { student_name, student_last_name, father_email } = rows[0];
+
+        // Enviar correo al padre
+        await EmailController.sendEmail({
+          to: father_email,
+          subject: "Notificación de llegada del estudiante",
+          template: "student-entry",
+          data: {
+            studentName: student_name,
+            studentLastName: student_last_name,
+            arrivalTime: now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          },
+        });
+      }
 
       res.status(201).json({
         message: "Asistencia registrada exitosamente.",
@@ -113,29 +88,69 @@ const AttendanceController = {
       res.status(500).json({ message: "Error interno al registrar asistencia." });
     }
   },
- /**
+
+  //metodo para registrar la salida del estudiante
+  async exit(req, res) {
+    try {
+      const { student_fk } = req.body;
+
+      if (!student_fk) {
+        return res.status(400).json({ message: "El campo student_fk es requerido." });
+      }
+
+      // Obtener hora y fecha actuales
+      const now = new Date();
+      const attendance_date = now.toISOString().split("T")[0]; // YYYY-MM-DD
+      const attendance_time = now.toTimeString().split(" ")[0]; // HH:MM:SS
+
+      // Insertar asistencia
+      const result = await AttendanceModel.create({
+        student_fk,
+        attendance_time,
+        attendance_date,
+      });
+
+      // Buscar información del estudiante y su padre
+      const [rows] = await db.query(
+        `SELECT s.student_name, s.student_last_name, f.father_email
+         FROM student_management s
+         JOIN father_management f ON s.student_id = f.student_fk
+         WHERE s.student_id = ?`,
+        [student_fk]
+      );
+
+      if (rows.length > 0) {
+        const { student_name, student_last_name, father_email } = rows[0];
+
+        // Enviar correo al padre
+        await EmailController.sendEmail({
+          to: father_email,
+          subject: "Notificación de salida del estudiante",
+          template: "student-exit",
+          data: {
+            studentName: student_name,
+            studentLastName: student_last_name,
+            arrivalTime: now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          },
+        });
+      }
+
+      res.status(201).json({
+        message: "salida registrada exitosamente.",
+        data: result,
+      });
+    } catch (err) {
+      console.error("AttendanceController.exit error:", err);
+      res.status(500).json({ message: "Error interno al registrar asistencia." });
+    }
+  },
+
+  /**
    * @swagger
    * /attendance/:
    *   get:
    *     summary: Obtener todas las asistencias registradas
    *     tags: [Attendance]
-   *     responses:
-   *       200:
-   *         description: Listado de asistencias
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   example: Listado de asistencias.
-   *                 data:
-   *                   type: array
-   *                   items:
-   *                     $ref: '#/components/schemas/AttendanceResponse'
-   *       500:
-   *         description: Error al obtener las asistencias
    */
   async getAll(req, res) {
     try {

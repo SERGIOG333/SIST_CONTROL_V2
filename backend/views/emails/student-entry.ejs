@@ -37,11 +37,14 @@
   <div class="container">
     <h2>📚 Notificación de llegada</h2>
     <p>Estimado(a) padre/madre,</p>
-    <p>Le informamos que su hijo(a): <strong><%= studentName %> <%= studentLastName %></strong> 
-    ha <strong>llegado a la institución</strong>.</p>
-    <p><strong>Hora de llegada:</strong> <%= arrivalTime %></p>
+    <p>
+      Le informamos que su hijo(a): 
+      <strong>{{studentName}} {{studentLastName}}</strong> 
+      ha <strong>llegado a la institución</strong>.
+    </p>
+    <p><strong>Hora de llegada:</strong> {{arrivalTime}}</p>
     <div class="footer">
-      <p>Sistema de Control de Asistencia © <%= new Date().getFullYear() %></p>
+      <p>Sistema de Control de Asistencia © {{year}}</p>
     </div>
   </div>
 </body>
