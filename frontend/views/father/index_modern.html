@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>👨‍👩‍👧‍👦 Módulo Padres - SistControl</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- CSS Moderno -->
+  <link rel="stylesheet" href="../../assets/css/styles_modern.css">
+  <link rel="stylesheet" href="../../assets/css/modulos_educativos.css">
+  <link rel="stylesheet" href="../../assets/css/sidebar_toggle.css">
+
+  <!-- Íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="modulo-container modulo-padres">
+    <div class="container-fluid">
+      <!-- Header Mágico -->
+      <div class="modulo-header">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <h1><i class="fas fa-user-friends me-3"></i>Módulo Padres</h1>
+            <p>👨‍👩‍👧‍👦 Conectando familias con la educación - El puente entre el hogar y la escuela</p>
+          </div>
+          <div class="col-md-4 text-end">
+            <div class="stats-card">
+              <div class="stats-number" id="totalPadres">0</div>
+              <div class="stats-label">Padres Registrados</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards de Acción -->
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="modulo-card">
+            <i class="fas fa-user-plus card-icon text-info"></i>
+            <h3 class="card-title">👨‍👩‍👧‍👦 Nuevo Padre/Tutor</h3>
+            <p class="card-text">Registra a los padres y tutores de nuestros estudiantes para una comunicación efectiva.</p>
+            <a href="#" class="btn-modulo">
+              <i class="fas fa-plus me-2"></i>Registrar Padre
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="modulo-card">
+            <i class="fas fa-link card-icon text-success"></i>
+            <h3 class="card-title">🔗 Vincular Padres</h3>
+            <p class="card-text">Asocia padres con sus hijos para un seguimiento personalizado.</p>
+            <a href="#" class="btn-modulo">
+              <i class="fas fa-link me-2"></i>Vincular Familia
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="modulo-card">
+            <i class="fas fa-comments card-icon text-primary"></i>
+            <h3 class="card-title">💬 Comunicación</h3>
+            <p class="card-text">Facilita la comunicación entre padres, profesores y administración.</p>
+            <a href="#" class="btn-modulo">
+              <i class="fas fa-comments me-2"></i>Centro de Mensajes
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="modulo-card">
+            <i class="fas fa-chart-line card-icon text-warning"></i>
+            <h3 class="card-title">📊 Reportes Familiares</h3>
+            <p class="card-text">Genera reportes personalizados para cada familia sobre el progreso estudiantil.</p>
+            <a href="#" class="btn-modulo">
+              <i class="fas fa-chart-bar me-2"></i>Ver Reportes
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="modulo-card">
+            <i class="fas fa-calendar-alt card-icon text-danger"></i>
+            <h3 class="card-title">📅 Reuniones</h3>
+            <p class="card-text">Organiza y gestiona reuniones con padres de familia.</p>
+            <a href="#" class="btn-modulo">
+              <i class="fas fa-calendar me-2"></i>Gestionar Reuniones
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="modulo-card special">
+            <i class="fas fa-heart card-icon text-warning"></i>
+            <h3 class="card-title">❤️ Padres Destacados</h3>
+            <p class="card-text">Padres que más participan y colaboran con la institución.</p>
+            <a href="#" class="btn-modulo">
+              <i class="fas fa-heart me-2"></i>Ver Destacados
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Familias Destacadas -->
+      <div class="row mt-5">
+        <div class="col-12">
+          <div class="modulo-card">
+            <h3 class="card-title mb-4">
+              <i class="fas fa-star me-2"></i>Familias Más Participativas ⭐
+            </h3>
+            <div class="row g-4">
+              <div class="col-md-4">
+                <div class="position-relative">
+                  <div class="bg-gradient-to-r from-blue-400 to-cyan-400 rounded-3 p-4 text-white mb-3">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                      <div>
+                        <h5 class="mb-1">👨‍👩‍👧‍👦 Familia García</h5>
+                        <p class="small mb-0">Padres de Laura García</p>
+                      </div>
+                      <span class="badge bg-white text-dark">🥇 #1</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="badge bg-white text-dark">📧 15 mensajes</span>
+                      <span class="badge bg-white text-dark">📅 3 reuniones</span>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button class="btn btn-outline-info btn-sm me-2">
+                      <i class="fas fa-envelope me-1"></i>Contactar
+                    </button>
+                    <button class="btn btn-info btn-sm">
+                      <i class="fas fa-eye me-1"></i>Ver Perfil
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="position-relative">
+                  <div class="bg-gradient-to-r from-green-400 to-emerald-400 rounded-3 p-4 text-white mb-3">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                      <div>
+                        <h5 class="mb-1">👨‍👩‍👦‍👦 Familia Rodríguez</h5>
+                        <p class="small mb-0">Padres de Carlos Rodríguez</p>
+                      </div>
+                      <span class="badge bg-white text-dark">🥈 #2</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="badge bg-white text-dark">📧 12 mensajes</span>
+                      <span class="badge bg-white text-dark">📅 2 reuniones</span>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button class="btn btn-outline-success btn-sm me-2">
+                      <i class="fas fa-envelope me-1"></i>Contactar
+                    </button>
+                    <button class="btn btn-success btn-sm">
+                      <i class="fas fa-eye me-1"></i>Ver Perfil
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="position-relative">
+                  <div class="bg-gradient-to-r from-purple-400 to-pink-400 rounded-3 p-4 text-white mb-3">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                      <div>
+                        <h5 class="mb-1">👨‍👩‍👧‍👦 Familia López</h5>
+                        <p class="small mb-0">Padres de Ana López</p>
+                      </div>
+                      <span class="badge bg-white text-dark">🥉 #3</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="badge bg-white text-dark">📧 10 mensajes</span>
+                      <span class="badge bg-white text-dark">📅 4 reuniones</span>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button class="btn btn-outline-secondary btn-sm me-2">
+                      <i class="fas fa-envelope me-1"></i>Contactar
+                    </button>
+                    <button class="btn btn-secondary btn-sm">
+                      <i class="fas fa-eye me-1"></i>Ver Perfil
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensajes Recientes -->
+      <div class="row mt-5">
+        <div class="col-12">
+          <div class="modulo-card">
+            <h3 class="card-title mb-4">
+              <i class="fas fa-envelope me-2"></i>Mensajes Recientes de Padres
+            </h3>
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="d-flex align-items-start p-3 bg-light rounded-3">
+                  <div class="bg-info rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                    <i class="fas fa-user text-white"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <h6 class="mb-0">María González</h6>
+                      <small class="text-muted">Hace 2 horas</small>
+                    </div>
+                    <p class="mb-2 text-muted">Hola, me gustaría saber cómo va el progreso de Laura en matemáticas...</p>
+                    <div class="d-flex">
+                      <button class="btn btn-sm btn-outline-primary me-2">
+                        <i class="fas fa-reply me-1"></i>Responder
+                      </button>
+                      <button class="btn btn-sm btn-outline-info">
+                        <i class="fas fa-eye me-1"></i>Ver Hilo
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex align-items-start p-3 bg-light rounded-3">
+                  <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                    <i class="fas fa-user text-white"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <h6 class="mb-0">Carlos Mendoza</h6>
+                      <small class="text-muted">Hace 4 horas</small>
+                    </div>
+                    <p class="mb-2 text-muted">Excelente trabajo con Carlos en ciencias. ¿Podemos agendar una reunión?</p>
+                    <div class="d-flex">
+                      <button class="btn btn-sm btn-outline-success me-2">
+                        <i class="fas fa-reply me-1"></i>Responder
+                      </button>
+                      <button class="btn btn-sm btn-outline-info">
+                        <i class="fas fa-calendar me-1"></i>Agendar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex align-items-start p-3 bg-light rounded-3">
+                  <div class="bg-warning rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                    <i class="fas fa-user text-white"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <h6 class="mb-0">Ana López</h6>
+                      <small class="text-muted">Hace 6 horas</small>
+                    </div>
+                    <p class="mb-2 text-muted">Gracias por la atención especial que le dan a Ana. Está muy motivada...</p>
+                    <div class="d-flex">
+                      <button class="btn btn-sm btn-outline-warning me-2">
+                        <i class="fas fa-reply me-1"></i>Responder
+                      </button>
+                      <button class="btn btn-sm btn-outline-info">
+                        <i class="fas fa-heart me-1"></i>Me Gusta
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex align-items-start p-3 bg-light rounded-3">
+                  <div class="bg-danger rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                    <i class="fas fa-user text-white"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <h6 class="mb-0">Roberto García</h6>
+                      <small class="text-muted">Hace 8 horas</small>
+                    </div>
+                    <p class="mb-2 text-muted">¿Podrían enviarme el horario actualizado de clases de Laura?</p>
+                    <div class="d-flex">
+                      <button class="btn btn-sm btn-outline-danger me-2">
+                        <i class="fas fa-reply me-1"></i>Responder
+                      </button>
+                      <button class="btn btn-sm btn-outline-info">
+                        <i class="fas fa-paperclip me-1"></i>Adjuntar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de Padres -->
+      <div class="row mt-5">
+        <div class="col-12">
+          <div class="modulo-card">
+            <h3 class="card-title mb-4">
+              <i class="fas fa-table me-2"></i>Lista de Padres y Tutores
+            </h3>
+            <div class="tabla-modulo">
+              <table class="table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th><i class="fas fa-user me-2"></i>Padre/Tutor</th>
+                    <th><i class="fas fa-child me-2"></i>Hijos</th>
+                    <th><i class="fas fa-envelope me-2"></i>Contacto</th>
+                    <th><i class="fas fa-comments me-2"></i>Actividad</th>
+                    <th><i class="fas fa-calendar me-2"></i>Última Reunión</th>
+                    <th><i class="fas fa-cog me-2"></i>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaPadres">
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="bg-info rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                          <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div>
+                          <strong>María González</strong><br>
+                          <small class="text-muted">Madre de Laura García</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge bg-primary me-1">Laura García</span>
+                      <span class="badge bg-info">5to Grado</span>
+                    </td>
+                    <td>
+                      <i class="fas fa-envelope me-2 text-muted"></i>
+                      maria.gonzalez@email.com<br>
+                      <i class="fas fa-phone me-2 text-muted"></i>
+                      +123 456 7890
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <span class="text-success me-2">●</span>
+                        <span class="badge bg-success">Alto</span>
+                      </div>
+                    </td>
+                    <td>2024-01-10</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary me-2">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-info me-2">
+                        <i class="fas fa-envelope"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-success me-2">
+                        <i class="fas fa-calendar"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger">
+                        <i class="fas fa-phone"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                          <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div>
+                          <strong>Carlos Mendoza</strong><br>
+                          <small class="text-muted">Padre de Carlos Mendoza</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge bg-success me-1">Carlos Mendoza</span>
+                      <span class="badge bg-success">4to Grado</span>
+                    </td>
+                    <td>
+                      <i class="fas fa-envelope me-2 text-muted"></i>
+                      carlos.mendoza@email.com<br>
+                      <i class="fas fa-phone me-2 text-muted"></i>
+                      +123 456 7891
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <span class="text-warning me-2">●</span>
+                        <span class="badge bg-warning">Medio</span>
+                      </div>
+                    </td>
+                    <td>2024-01-08</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary me-2">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-info me-2">
+                        <i class="fas fa-envelope"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-success me-2">
+                        <i class="fas fa-calendar"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger">
+                        <i class="fas fa-phone"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Script personalizado -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.modulo-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+
+      // Simular datos dinámicos
+      document.getElementById('totalPadres').textContent = '89';
+
+      // Efectos hover en las cards
+      document.querySelectorAll('.modulo-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

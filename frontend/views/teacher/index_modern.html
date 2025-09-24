@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>👨‍🏫 Módulo Profesores - SistControl</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- CSS Moderno -->
+  <link rel="stylesheet" href="../../assets/css/styles_modern.css">
+  <link rel="stylesheet" href="../../assets/css/modulos_educativos.css">
+  <link rel="stylesheet" href="../../assets/css/sidebar_toggle.css">
+
+  <!-- Íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="modulo-container modulo-profesores">
+    <div class="container-fluid">
+      <!-- Header Mágico -->
+      <div class="modulo-header">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <h1><i class="fas fa-chalkboard-teacher me-3"></i>Módulo Profesores</h1>
+            <p>👨‍🏫 Nuestros guías educativos, el corazón de la institución</p>
+          </div>
+          <div class="col-md-4 text-end">
+            <div class="stats-card">
+              <div class="stats-number" id="totalProfesores">0</div>
+              <div class="stats-label">Profesores Activos</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards de Acción -->
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="modulo-card">
+            <i class="fas fa-user-plus card-icon text-success"></i>
+            <h3 class="card-title">➕ Nuevo Profesor</h3>
+            <p class="card-text">Incorpora nuevos talentos educativos a nuestro equipo docente.</p>
+            <a href="#" class="btn-modulo">
+              <i class="fas fa-plus me-2"></i>Agregar Profesor
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="modulo-card">
+            <i class="fas fa-users card-icon text-info"></i>
+            <h3 class="card-title">📚 Equipo Docente</h3>
+            <p class="card-text">Gestiona todo el personal docente de la institución.</p>
+            <a href="#" class="btn-modulo">
+              <i class="fas fa-users me-2"></i>Ver Equipo
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="modulo-card">
+            <i class="fas fa-calendar-check card-icon text-warning"></i>
+            <h3 class="card-title">📅 Horarios</h3>
+            <p class="card-text">Organiza y gestiona los horarios de clases de los profesores.</p>
+            <a href="#" class="btn-modulo">
+              <i class="fas fa-calendar me-2"></i>Gestionar Horarios
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="modulo-card">
+            <i class="fas fa-chart-pie card-icon text-primary"></i>
+            <h3 class="card-title">📊 Rendimiento</h3>
+            <p class="card-text">Evalúa el desempeño y productividad del equipo docente.</p>
+            <a href="#" class="btn-modulo">
+              <i class="fas fa-chart-line me-2"></i>Ver Rendimiento
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="modulo-card">
+            <i class="fas fa-award card-icon text-danger"></i>
+            <h3 class="card-title">🏆 Reconocimientos</h3>
+            <p class="card-text">Reconoce la excelencia y dedicación de nuestros profesores.</p>
+            <a href="#" class="btn-modulo">
+              <i class="fas fa-trophy me-2"></i>Ver Reconocimientos
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="modulo-card special">
+            <i class="fas fa-star card-icon text-warning"></i>
+            <h3 class="card-title">⭐ Profesores Destacados</h3>
+            <p class="card-text">Profesores con mejor evaluación y mayor impacto educativo.</p>
+            <a href="#" class="btn-modulo">
+              <i class="fas fa-star me-2"></i>Ver Destacados
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profesores Destacados -->
+      <div class="row mt-5">
+        <div class="col-12">
+          <div class="modulo-card">
+            <h3 class="card-title mb-4">
+              <i class="fas fa-star me-2"></i>Profesores Destacados del Mes
+            </h3>
+            <div class="row g-4">
+              <div class="col-md-4">
+                <div class="text-center">
+                  <div class="position-relative mb-3">
+                    <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                      <i class="fas fa-user text-white" style="font-size: 2rem;"></i>
+                    </div>
+                    <div class="badge bg-warning position-absolute" style="top: -5px; right: 10px;">
+                      <i class="fas fa-crown"></i>
+                    </div>
+                  </div>
+                  <h5 class="text-success">María González</h5>
+                  <p class="text-muted small">Matemáticas</p>
+                  <div class="d-flex justify-content-center">
+                    <span class="badge bg-success me-1">⭐ 4.9</span>
+                    <span class="badge bg-info">📚 15 años</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="text-center">
+                  <div class="position-relative mb-3">
+                    <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                      <i class="fas fa-user text-white" style="font-size: 2rem;"></i>
+                    </div>
+                    <div class="badge bg-warning position-absolute" style="top: -5px; right: 10px;">
+                      <i class="fas fa-crown"></i>
+                    </div>
+                  </div>
+                  <h5 class="text-primary">Carlos Mendoza</h5>
+                  <p class="text-muted small">Ciencias</p>
+                  <div class="d-flex justify-content-center">
+                    <span class="badge bg-success me-1">⭐ 4.8</span>
+                    <span class="badge bg-info">📚 12 años</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="text-center">
+                  <div class="position-relative mb-3">
+                    <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                      <i class="fas fa-user text-white" style="font-size: 2rem;"></i>
+                    </div>
+                    <div class="badge bg-warning position-absolute" style="top: -5px; right: 10px;">
+                      <i class="fas fa-crown"></i>
+                    </div>
+                  </div>
+                  <h5 class="text-warning">Ana López</h5>
+                  <p class="text-muted small">Lenguaje</p>
+                  <div class="d-flex justify-content-center">
+                    <span class="badge bg-success me-1">⭐ 4.9</span>
+                    <span class="badge bg-info">📚 18 años</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de Profesores -->
+      <div class="row mt-5">
+        <div class="col-12">
+          <div class="modulo-card">
+            <h3 class="card-title mb-4">
+              <i class="fas fa-table me-2"></i>Lista de Profesores
+            </h3>
+            <div class="tabla-modulo">
+              <table class="table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th><i class="fas fa-user me-2"></i>Profesor</th>
+                    <th><i class="fas fa-book me-2"></i>Materia</th>
+                    <th><i class="fas fa-envelope me-2"></i>Email</th>
+                    <th><i class="fas fa-phone me-2"></i>Teléfono</th>
+                    <th><i class="fas fa-star me-2"></i>Rating</th>
+                    <th><i class="fas fa-cog me-2"></i>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaProfesores">
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                          <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div>
+                          <strong>María González</strong><br>
+                          <small class="text-muted">ID: T001</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td><span class="badge bg-primary">Matemáticas</span></td>
+                    <td>maria.gonzalez@escuela.edu</td>
+                    <td>+123 456 7890</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <span class="text-warning me-2">⭐</span>
+                        <span class="badge bg-success">4.9</span>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary me-2">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-info me-2">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-success me-2">
+                        <i class="fas fa-award"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                          <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div>
+                          <strong>Carlos Mendoza</strong><br>
+                          <small class="text-muted">ID: T002</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td><span class="badge bg-info">Ciencias</span></td>
+                    <td>carlos.mendoza@escuela.edu</td>
+                    <td>+123 456 7891</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <span class="text-warning me-2">⭐</span>
+                        <span class="badge bg-success">4.8</span>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary me-2">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-info me-2">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-success me-2">
+                        <i class="fas fa-award"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Script personalizado -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.modulo-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+
+      // Simular datos dinámicos
+      document.getElementById('totalProfesores').textContent = '23';
+
+      // Efectos hover en las cards
+      document.querySelectorAll('.modulo-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -18,8 +18,13 @@
 
   <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
-    <div class="bg-primary text-white sidebar p-3">
-      <h3 class="text-center mb-4">SistControl</h3>
+    <div class="bg-primary text-white sidebar p-3" id="sidebar">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="mb-0">SistControl</h3>
+        <button class="btn btn-outline-light btn-sm d-md-none" id="sidebarClose">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#dashboard" class="nav-link text-custom-menu"><i class="fas fa-home me-2"></i>Dashboard</a></li>
         <li class="nav-item mb-2"><a href="#admin" class="nav-link text-custom-menu"><i class="fas fa-user-shield me-2"></i>Administrador</a></li>
@@ -38,6 +43,9 @@
     <div class="w-100 d-flex flex-column">
       <!-- Header -->
       <nav class="navbar navbar-expand navbar-dark bg-dark border-bottom shadow-sm px-4">
+        <button class="btn btn-outline-light me-3" id="sidebarToggle">
+          <i class="fas fa-bars"></i>
+        </button>
         <span class="navbar-brand text-warning">Panel del Administrador</span>
         <div class="ms-auto dropdown">
           <a class="nav-link dropdown-toggle text-white" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,7 +62,7 @@
         <div class="container-fluid">
           <div class="card">
             <div class="card-body">
-              <iframe id="contentFrame" class="w-100 border-0" style="min-height: 500px;" src="frontend/views/dashboard/index.html"></iframe>
+              <iframe id="contentFrame" class="w-100 border-0" style="min-height: 500px;" src="frontend/views/dashboard/index_modern.html"></iframe>
             </div>
           </div>
         </div>
@@ -68,7 +76,7 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Script de logout -->
+  <!-- Script de logout y toggle sidebar -->
   <script>
     // Funcionalidad de logout
     document.getElementById('logoutBtn').addEventListener('click', function(e) {
@@ -78,7 +86,22 @@
       localStorage.removeItem('token-app');
 
       // Redirigir al login
-      window.location.href = 'frontend/views/auth/index.html';
+      window.location.href = 'frontend/views/auth/index_modern.html';
+    });
+
+    // Toggle sidebar
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+      const sidebar = document.getElementById('sidebar');
+      const mainContent = document.querySelector('.main-content');
+
+      sidebar.classList.toggle('show');
+      mainContent.classList.toggle('sidebar-hidden');
+    });
+
+    // Cerrar sidebar en móviles
+    document.getElementById('sidebarClose').addEventListener('click', function() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.remove('show');
     });
   </script>
 </body>
