@@ -10,4 +10,9 @@ router.get(name + "/:id", StudentManagementController.findById);
 router.put(name + "/:id", StudentManagementController.update);
 router.delete(name + "/:id", StudentManagementController.delete);
 
+//  ruta para generar QR
+router.get(name + "/:identificacion/qr", StudentManagementController.generateQr);
+// Buscar por identificacion
+
+
 export default router;

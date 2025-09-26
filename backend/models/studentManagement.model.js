@@ -97,7 +97,20 @@ const StudentManagementModel = {
   async delete(id) {
     const [result] = await connect.query(`DELETE FROM student_management WHERE student_id = ?`, [id]);
     return result.affectedRows;
+  },
+
+
+  //buscar por identificacion
+   async findByIdentificacion(identificacion) {
+    const [rows] = await connect.query(
+      "SELECT * FROM student_management WHERE student_identificacion = ?",
+      [identificacion]
+    );
+    return rows.length > 0 ? rows[0] : null;
   }
+
+  
+  
 };
 
 export default StudentManagementModel;

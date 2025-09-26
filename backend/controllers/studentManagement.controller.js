@@ -1,97 +1,7 @@
 import StudentManagementModel from "../models/studentManagement.model.js";
-/**
- * @swagger
- * tags:
- *   name: Student
- *   description: Gestión de estudiantes
- */
+import QRCode from "qrcode";
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     StudentInput:
- *       type: object
- *       required:
- *         - student_name
- *         - student_last_name
- *         - student_identificacion
- *         - student_arrival_time
- *         - student_departure_time
- *         - student_email
- *         - student_date
- *         - student_photo
- *       properties:
- *         student_name:
- *           type: string
- *           example: Juan
- *         student_last_name:
- *           type: string
- *           example: Gómez
- *         student_identificacion:
- *           type: string
- *           example: 123456789
- *         student_arrival_time:
- *           type: string
- *           format: time
- *           example: "07:00:00"
- *         student_departure_time:
- *           type: string
- *           format: time
- *           example: "13:00:00"
- *         student_email:
- *           type: string
- *           example: juan@example.com
- *         student_date:
- *           type: string
- *           format: date
- *           example: "2025-07-04"
- *         student_photo:
- *           type: string
- *           example: photo123.jpg
- *     StudentResponse:
- *       type: object
- *       properties:
- *         student_id:
- *           type: integer
- *         student_name:
- *           type: string
- *         student_last_name:
- *           type: string
- *         student_identificacion:
- *           type: string
- *         student_arrival_time:
- *           type: string
- *         student_departure_time:
- *           type: string
- *         student_email:
- *           type: string
- *         student_date:
- *           type: string
- *         student_photo:
- *           type: string
- */
 class StudentManagementController {
-   /**
-   * @swagger
-   * /student:
-   *   post:
-   *     summary: Registrar un nuevo estudiante
-   *     tags: [Student]
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             $ref: '#/components/schemas/StudentInput'
-   *     responses:
-   *       201:
-   *         description: Estudiante creado exitosamente
-   *       400:
-   *         description: Campos requeridos faltantes
-   *       500:
-   *         description: Error interno del servidor
-   */
   async register(req, res) {
     try {
       const {
@@ -105,8 +15,16 @@ class StudentManagementController {
         student_photo
       } = req.body;
 
-      if (!student_name || !student_last_name || !student_identificacion || !student_arrival_time ||
-          !student_departure_time || !student_email || !student_date || !student_photo) {
+      if (
+        !student_name ||
+        !student_last_name ||
+        !student_identificacion ||
+        !student_arrival_time ||
+        !student_departure_time ||
+        !student_email ||
+        !student_date ||
+        !student_photo
+      ) {
         return res.status(400).json({ error: "Required fields are missing" });
       }
 
@@ -127,29 +45,7 @@ class StudentManagementController {
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
- /**
-   * @swagger
-   * /student:
-   *   get:
-   *     summary: Obtener todos los estudiantes
-   *     tags: [Student]
-   *     responses:
-   *       200:
-   *         description: Lista de estudiantes obtenida
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                 data:
-   *                   type: array
-   *                   items:
-   *                     $ref: '#/components/schemas/StudentResponse'
-   *       500:
-   *         description: Error del servidor
-   */
+
   async show(req, res) {
     try {
       const result = await StudentManagementModel.show();
@@ -158,30 +54,7 @@ class StudentManagementController {
       res.status(500).json({ error: "Error retrieving students" });
     }
   }
-/**
-   * @swagger
-   * /student/{id}:
-   *   get:
-   *     summary: Obtener un estudiante por ID
-   *     tags: [Student]
-   *     parameters:
-   *       - in: path
-   *         name: id
-   *         required: true
-   *         schema:
-   *           type: integer
-   *     responses:
-   *       200:
-   *         description: Estudiante encontrado
-   *         content:
-   *           application/json:
-   *             schema:
-   *               $ref: '#/components/schemas/StudentResponse'
-   *       404:
-   *         description: Estudiante no encontrado
-   *       500:
-   *         description: Error al buscar el estudiante
-   */
+
   async findById(req, res) {
     try {
       const id = req.params.id;
@@ -196,32 +69,7 @@ class StudentManagementController {
       res.status(500).json({ error: "Error finding student" });
     }
   }
-/**
-   * @swagger
-   * /student/{id}:
-   *   put:
-   *     summary: Actualizar un estudiante por ID
-   *     tags: [Student]
-   *     parameters:
-   *       - in: path
-   *         name: id
-   *         required: true
-   *         schema:
-   *           type: integer
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             $ref: '#/components/schemas/StudentInput'
-   *     responses:
-   *       200:
-   *         description: Estudiante actualizado correctamente
-   *       404:
-   *         description: Estudiante no encontrado
-   *       500:
-   *         description: Error actualizando estudiante
-   */
+
   async update(req, res) {
     try {
       const id = req.params.id;
@@ -237,26 +85,7 @@ class StudentManagementController {
       res.status(500).json({ error: "Error updating student" });
     }
   }
-/**
-   * @swagger
-   * /student/{id}:
-   *   delete:
-   *     summary: Eliminar un estudiante por ID
-   *     tags: [Student]
-   *     parameters:
-   *       - in: path
-   *         name: id
-   *         required: true
-   *         schema:
-   *           type: integer
-   *     responses:
-   *       200:
-   *         description: Estudiante eliminado correctamente
-   *       404:
-   *         description: Estudiante no encontrado
-   *       500:
-   *         description: Error eliminando estudiante
-   */
+
   async delete(req, res) {
     try {
       const id = req.params.id;
@@ -271,6 +100,40 @@ class StudentManagementController {
       res.status(500).json({ error: "Error deleting student" });
     }
   }
+//controlador para generar QR
+  async generateQr(req, res) {
+    try {
+      const identificacion = req.params.identificacion;
+      const student = await StudentManagementModel.findByIdentificacion(identificacion);
+
+      if (!student) {
+        return res.status(404).json({ error: "Student not found" });
+      }
+
+      const payload = JSON.stringify({
+        student_id: student.student_id,
+        identificacion: student.student_identificacion,
+        nombre: `${student.student_name} ${student.student_last_name}`
+      });
+
+      const qrBuffer = await QRCode.toBuffer(payload, {
+        type: "png",
+        errorCorrectionLevel: "H",
+        margin: 2,
+        scale: 8
+      });
+
+      res.setHeader("Content-Type", "image/png");
+      res.setHeader("Content-Length", qrBuffer.length);
+      return res.send(qrBuffer);
+    } catch (error) {
+      console.error("Generate QR error:", error);
+      res.status(500).json({ error: "Error generating QR" });
+    }
+  }
+  
+
+  
 }
 
 export default new StudentManagementController();
