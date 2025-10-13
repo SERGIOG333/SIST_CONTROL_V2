@@ -1,5 +1,5 @@
 // migrate.js
-import { runMigration } from './migracion_sist_controlV2.js';
+import { runMigration } from './migration_sistcontrol.js';
 
 runMigration()
   .then((result) => {
