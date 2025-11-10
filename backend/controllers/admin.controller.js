@@ -92,6 +92,7 @@ class AdminController {
     try {
       const admins = await AdminModel.show();
       res.status(200).json({ message: "Admins fetched", data: admins });
+      
     } catch (error) {
       res.status(500).json({ error: "Error fetching admins" });
     }

@@ -2,6 +2,7 @@ import StudentManagementModel from "../models/studentManagement.model.js";
 import QRCode from "qrcode";
 
 class StudentManagementController {
+  
   async register(req, res) {
     try {
       const {
