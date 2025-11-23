@@ -2,7 +2,7 @@
 
 Sistema completo de gestión escolar con autenticación JWT, panel de administración y módulos para estudiantes, profesores, cursos y más.
 
-## 🚀 **Inicio Rápido**
+##  **Inicio Rápido**
 
 ### 1. **Configurar la Base de Datos**
 
@@ -50,48 +50,19 @@ npm start
 
 El servidor estará disponible en: `http://localhost:3000`
 
-## 📋 **Crear Usuario Administrador**
 
-Para crear el primer administrador, ejecuta en MySQL:
-
-```sql
--- Primero crea un usuario en la tabla users
-INSERT INTO users (username, email, password_hash, status_id)
-VALUES ('admin', 'admin@test.com', '$2b$10$hashedpassword', 1);
-
--- Luego crea el administrador en la tabla admin
-INSERT INTO admin (admin_name, admin_last_name, admin_email, admin_password, Users_fk)
-VALUES ('Admin', 'Test', 'admin@test.com', '$2b$10$hashedpassword', 1);
-```
-
-## 🌐 **Acceso al Sistema**
+##  **Acceso al Sistema**
 
 ### **Login de Administrador:**
 - **URL:** `http://localhost:3000/frontend/views/auth/index.html`
-- **Email:** `admin@test.com`
-- **Password:** `tu_password`
+- **Email:** `sergio@example.com`
+- **Password:** `sergioG123`
 
 ### **Panel Principal:**
 - **URL:** `http://localhost:3000/index.html`
 
-## 🧪 **Probar los Botones del Dashboard**
 
-Para verificar que los botones del dashboard funcionan correctamente:
-
-1. **Abre la página de prueba:**
-   ```
-   http://localhost:3000/test-dashboard.html
-   ```
-
-2. **Haz clic en cualquier botón "Ver módulo"** - Se abrirá el panel principal en una nueva pestaña
-
-3. **Verifica que:**
-   - ✅ El módulo se carga correctamente en el iframe
-   - ✅ La URL cambia (ej: `index.html#student`)
-   - ✅ El botón de la barra lateral se resalta
-   - ✅ Todos los botones funcionan igual
-
-## 🎯 **Flujo de Funcionamiento Corregido**
+##  **Flujo de Funcionamiento Corregido**
 
 1. **Dashboard** → `index.html#dashboard`
 2. **Botón Estudiantes** → `index.html#student`
@@ -104,15 +75,7 @@ Para verificar que los botones del dashboard funcionan correctamente:
 9. **Botón Cursos y Estudiantes** → `index.html#courseStudent`
 10. **Botón Padres** → `index.html#father`
 
-## ✅ **Problemas Solucionados**
-
-- ✅ **Botones del Dashboard** ahora redirigen correctamente al panel principal
-- ✅ **Sistema de rutas** funciona perfectamente con todos los módulos
-- ✅ **Navegación** entre módulos desde dashboard y barra lateral
-- ✅ **URLs** se actualizan correctamente con los hashes
-- ✅ **Iframe** carga los módulos correspondientes
-
-## 📁 **Estructura del Proyecto**
+##  **Estructura del Proyecto**
 
 ```
 /
@@ -129,20 +92,20 @@ Para verificar que los botones del dashboard funcionan correctamente:
 └── README.md              # Este archivo
 ```
 
-## 🔧 **Módulos Disponibles**
+##  **Módulos Disponibles**
 
-- ✅ **Dashboard** - Panel principal con botones funcionales
-- ✅ **Administrador** - Gestión de administradores
-- ✅ **Estudiantes** - Gestión de estudiantes
-- ✅ **Profesores** - Gestión de profesores
-- ✅ **Cursos** - Gestión de cursos
-- ✅ **Usuarios** - Gestión de usuarios
-- ✅ **Roles** - Gestión de roles
-- ✅ **Estado de Usuario** - Gestión de estados
-- ✅ **Cursos y Estudiantes** - Asignación de cursos
-- ✅ **Padres** - Gestión de padres/acudientes
+-  **Dashboard** - Panel principal con botones funcionales
+-  **Administrador** - Gestión de administradores
+-  **Estudiantes** - Gestión de estudiantes
+-  **Profesores** - Gestión de profesores
+-  **Cursos** - Gestión de cursos
+-  **Usuarios** - Gestión de usuarios
+-  **Roles** - Gestión de roles
+-  **Estado de Usuario** - Gestión de estados
+-  **Cursos y Estudiantes** - Asignación de cursos
+-  **Padres** - Gestión de padres/acudientes
 
-## 🔐 **Autenticación**
+##  **Autenticación**
 
 El sistema utiliza JWT (JSON Web Tokens) para la autenticación:
 
@@ -150,7 +113,7 @@ El sistema utiliza JWT (JSON Web Tokens) para la autenticación:
 - **Validar Token:** `POST /api_v1/validate-token`
 - **Token expira:** 2 horas
 
-## 🛠 **API Endpoints**
+##  **API Endpoints**
 
 ### **Autenticación:**
 - `POST /api_v1/admin/login` - Login de administrador
@@ -184,36 +147,36 @@ El sistema utiliza JWT (JSON Web Tokens) para la autenticación:
 - `PUT /api_v1/course/:id` - Actualizar curso
 - `DELETE /api_v1/course/:id` - Eliminar curso
 
-## 🐛 **Solución de Problemas**
+##  **Solución de Problemas**
 
 ### **Error: "Cannot GET /frontend/index.html"**
-- ✅ **Solución:** Asegúrate de que el servidor esté corriendo en `http://localhost:3000`
-- ✅ **Solución:** Verifica que la ruta de redirección sea correcta: `/index.html#dashboard`
+-  **Solución:** Asegúrate de que el servidor esté corriendo en `http://localhost:3000`
+-  **Solución:** Verifica que la ruta de redirección sea correcta: `/index.html#dashboard`
 
 ### **Error: "Failed to load resource"**
-- ✅ **Solución:** Verifica que todas las rutas en los archivos HTML usen rutas absolutas (`/frontend/...`)
-- ✅ **Solución:** Asegúrate de que el servidor esté sirviendo archivos estáticos correctamente
+-  **Solución:** Verifica que todas las rutas en los archivos HTML usen rutas absolutas (`/frontend/...`)
+-  **Solución:** Asegúrate de que el servidor esté sirviendo archivos estáticos correctamente
 
 ### **Error de Autenticación**
-- ✅ **Solución:** Verifica que el archivo `.env` tenga `JWT_SECRET` configurado
-- ✅ **Solución:** Asegúrate de que el token se esté guardando correctamente en localStorage
+-  **Solución:** Verifica que el archivo `.env` tenga `JWT_SECRET` configurado
+-  **Solución:** Asegúrate de que el token se esté guardando correctamente en localStorage
 
 ### **Error de Base de Datos**
-- ✅ **Solución:** Verifica la configuración de conexión en `.env`
-- ✅ **Solución:** Ejecuta las migraciones para crear las tablas necesarias
+-  **Solución:** Verifica la configuración de conexión en `.env`
+-  **Solución:** Ejecuta las migraciones para crear las tablas necesarias
 
-## 📱 **Características**
+##  **Características**
 
-- ✅ **Responsive Design** - Funciona en móviles y tablets
-- ✅ **Autenticación JWT** - Sistema de login seguro
-- ✅ **Panel de Administración** - Interfaz intuitiva
-- ✅ **Módulos Completos** - Gestión integral del colegio
-- ✅ **API REST** - Backend escalable
-- ✅ **Base de Datos MySQL** - Almacenamiento robusto
-- ✅ **Botones del Dashboard** - Funcionan correctamente
-- ✅ **Navegación Fluida** - Entre todos los módulos
+-  **Responsive Design** - Funciona en móviles y tablets
+-  **Autenticación JWT** - Sistema de login seguro
+-  **Panel de Administración** - Interfaz intuitiva
+-  **Módulos Completos** - Gestión integral del colegio
+-  **API REST** - Backend escalable
+-  **Base de Datos MySQL** - Almacenamiento robusto
+-  **Botones del Dashboard** - Funcionan correctamente
+-  **Navegación Fluida** - Entre todos los módulos
 
-## 🔄 **Flujo de Funcionamiento**
+##  **Flujo de Funcionamiento**
 
 1. **Usuario accede al login** → `frontend/views/auth/index.html`
 2. **Ingresa credenciales** → Validación en frontend
@@ -225,23 +188,3 @@ El sistema utiliza JWT (JSON Web Tokens) para la autenticación:
 8. **Carga módulos** → Navegación por hash (#)
 9. **Botones del dashboard** → Redirigen al panel principal con hash correspondiente
 
-## 📞 **Soporte**
-
-Si encuentras algún problema:
-
-1. Revisa la consola del navegador (F12) para errores
-2. Verifica los logs del servidor
-3. Consulta la sección de "Solución de Problemas"
-4. Ejecuta el script de pruebas: `node test-api.js`
-5. Prueba los botones del dashboard: `test-dashboard.html`
-
-## 🚀 **¡Sistema 100% Funcional!**
-
-El sistema SistControl ahora tiene:
-- ✅ **Dashboard con botones funcionales**
-- ✅ **Navegación completa entre módulos**
-- ✅ **Sistema de rutas robusto**
-- ✅ **Interfaz intuitiva y responsive**
-- ✅ **Autenticación JWT completa**
-
-¡Todos los botones del dashboard ahora funcionan perfectamente! 🎉📚
