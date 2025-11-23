@@ -45,7 +45,7 @@ npm install
 
 ```bash
 cd backend
-npm start
+node server
 ```
 
 El servidor estará disponible en: `http://localhost:3000`
